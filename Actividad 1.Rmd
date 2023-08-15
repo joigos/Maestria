@@ -1,0 +1,429 @@
+---
+title: "Informe de análisis inmobiliario Cali"
+author: "Jorge Iván Gómez Sepulveda"
+date: "Mayo 7 de 2023"
+output: 
+  html_document:
+    toc: true
+    toc_float: true
+---
+
+<br>
+
+## Introducción
+
+Dado el gran dinamismo que está teniendo el sector inmobiliario en los últimos años y con el propósito de mantenerse a la vanguardia de los últimos avances y tendencias de este sector, resulta pertinente realizar una detallada investigación sobre las características actuales del sector inmobiliario en Cali.  Esto permitirá a los directivos y diferentes tomadores de decisiones dentro de la empresa B&G tomar mejores rumbos, guiados por herramientas estadísticas mas exhaustivas que garanticen la sostenibilidad y el crecimiento de la compañía para años venideros. 
+
+
+Para cumplir este objetivo, se contará con una base de datos que la empresa, de forma estratégica, ha estado recolectando a través del tiempo y que contiene información sobre las características de diferentes viviendas y su venta en la ciudad de Cali. Esta información es valiosa ya que permite realizar diferentes análisis estadísticos en pro de fortalecer el entendimiento del sector inmobiliario, anticiparse a la competencia y tomar decisiones en búsqueda de mejores oportunidades.
+
+
+El siguiente reporte se divide en cuatro partes principales, partiendo desde los objetivos pautados que trazaran el fin ultimo que se desea obtener con esta investigación, seguido de las diferentes metodologías con las que se estructuró la investigación, lo que permitirá tener un orden y estructura en el problema que se quiere resolver para la empresa. Posteriormente se presentarán los resultados, los cuales servirán para guiar y respaldar diferentes decisiones a futuro dentro de la organización. Por último, se harán las respectivas conclusiones que mostrarán una síntesis de todos los hallazgos.
+
+
+
+<br>
+
+## Objetivos
+
+<br>
+
+### Objetivo general:
+
+Realizar una investigación estadística mediante el uso de una base de datos al sector inmobiliario en Cali, que permita a la empresa B&G tomar decisiones mas acertadas con el fin de obtener mejores resultados en el futuro.
+
+
+### Objetivos específicos:
+
+- Entender las dinámicas del sector inmobiliario en Cali
+
+- Mostrar diferentes recursos estadísticos como indicadores o graficas que transformen a los datos en información más útil y comprensible.
+
+- Comprender mejor las dinámicas de los precios de las casas y apartamentos en Cali.
+
+- Generar una mejor comprensión de la demanda de la empresa, su características económicas y sociodemográficas.
+
+- Mapear las diferentes variables y características que hacen valiosas a las casas y apartamentos en venta en la ciudad de Cali.
+
+- Establecer diferentes recomendaciones a los directivos de la empresa B&G que guíen sus decisiones.
+
+<br>
+
+## Método
+
+Para esta investigación se siguió 3 etapas principales que, de forma sistemática, ayudaron a darle una mejor estructura al proyecto y a alcanzar los diferentes objetivos que se trazaron. Así pues, mediante el uso de diferentes técnicas se realizó un adecuamiento ideal de los datos, finalizando con la posterior entrega de resultados. A continuación, se presenta la metodología empleada en el proyecto:
+
+
+- **Tratamiento y preprocesamiento a los datos:** dado que la base de datos no venia en optimas condiciones, se tuvo que realizar, mediante diferentes técnicas, un preprocesamiento en donde se eliminaron algunos duplicados, se manejó los problemas con los datos faltantes y se normalizaron algunos datos que, en teoría deberían ser iguales, pero venían con nombres ligeramente diferentes. De esta forma se obtuvo una base de datos más limpia e idónea para realizar diferentes análisis.
+
+
+- **Análisis exploratorio de datos:** mediante el uso de esta técnica, se realizó una primera comprensión y descripción de la información para identificar diferentes relaciones y patrones en los datos. Para ello, se utilizó indicadores y herramientas de visualización que presentan la información de manera mas clara, lo que facilita la comprensión por parte de terceros.
+
+
+- **Presentación de recomendaciones:** apoyados en el análisis exploratorio, se llegaron a ciertas conclusiones y se diseñaron algunas recomendaciones en búsqueda de fortalecer las decisiones que se tomarán en la compañía. 
+
+
+<br>
+
+Se presenta a continuación una tabla resumen y algunas tecnicas empleadas en la metodología:
+
+
+
+| Preprocesamiento de los datos | Análisis exploratorio de los datos | Recomendaciones |
+|-------------------------------|------------------------------------|-----------------|
+| Eliminación de duplicados     | Medidas de tendencia central | Recomendaciones sobre el mercado |
+| Uso de diferentes técnicas de tratamiento de datos faltantes| Medidas de dispersión | Recomendaciones sobre la demanda |
+| Igualacion en diferencias de registros equivalentes | Análisis univariado | Recomendaciones sobre los precios |
+
+
+## Resultados
+
+
+### 1. Análisis descriptivo
+Para empezar se importa la base de datos, para esto se utilizará el lenguaje de programación R.  
+
+
+```{r message=FALSE, warning=FALSE}
+library(naniar)
+library(tidyverse)
+library(psych)
+library(corrplot)
+library(paqueteMET)
+
+datos <- data.frame(vivienda_faltantes)
+
+head(datos)
+```
+
+<br>
+
+Esta base está compuesta por 12 variables (incluyendo el ID) que brindan información sobre las características de algunas propiedades inmobiliarias en la ciudad de Cali. A continuación, se presenta una definición y caracterización de las variables:
+
+
+<br>
+
+*Definición de las variables:*
+
+| Variable | Descripción |
+|--------------|--------------|
+| id       | Identificación de la propiedad       |
+| zona       | Ubicación zonal de la propiedad       |
+| piso       | Cantidad de pisos de la propiedad (sin embargo, presuntamente también puede referirse a la ubicación del piso en el caso de apartamentos)       |
+| estrato       | Estrato socioeconómico       |
+| preciom       | Precio de venta de la propiedad (expresado en miles)       |
+| areaconst       | Metros cuadrados que abarca la propiedad       |
+| parquea       | Cantidad de parqueadores disponibles       |
+| banios       | Cantidad de baños       |
+| habitac       | Cantidad de habitaciones       |
+| tipo       | Tipo de propiedad (casa o apartamento)       |
+| barrio       | Barrio donde se encuentra ubicado       |
+| longitud y latitud  | Coordenadas donde se encuentra ubicado       |
+
+
+<br>
+<br>
+
+*Caracterización de las variables:*
+
+| Geoespacial y de ubicación    | Características fisicas de la propiedad | Elementos económicos          |
+|-------------------------------|---------------------------------------|:--------------------:|
+| Zona, barrio, longitud y latitud   | Pisos, estrato, area construida, parqueaderos, baños, habitaciones, tipo de propiedad |  Precio |
+
+
+<br>
+
+### 2. Preprocesamiento de los datos
+Debido a que la base de datos no se encuentra del todo limpia, ya que presenta duplicados, valores faltantes y variabilidad en registros equivalentes, se debe realizar primero un preprocesamiento de los mismos, de tal forma que pueda tener una estructura idónea para realizar análisis estadísticos.
+
+<br>
+
+**2.1. Duplicados**
+
+Se examina que no hayan propiedades duplicadas. De presentarse, se deberán eliminar para así tener valores unicos.
+
+```{r}
+# Valores duplicados
+sum(duplicated(datos$id))
+# Valores faltantes
+sum(is.na(datos$id))
+
+datos <- subset(datos, !is.na(id))
+datos <- datos[!duplicated(datos$id), ]
+```
+
+En este caso, se detectaron 10 propiedades duplicadas y 3 sin ID, las cuales fueron removidas.
+
+<br>
+**2.2. Valores faltantes**
+
+Algunas variables pueden tener valores faltantes o NA. Dependiendo de la naturaleza de estos registros faltantes, se deberá proceder de determinada forma mediante distintas técnicas que van desde la eliminación del registro, hasta la imputación del valor con la media, moda o mediana de la variable.
+
+
+
+```{r}
+# Se detectan variables con datos faltantes
+vis_miss(datos)
+```
+
+
+<br>
+
+La gráfica anterior muestra que las variables piso y parquea tienen un 32% y 19% de registros faltantes respectivamente. Debido a la significativa magnitud de registros faltantes, se evitará eliminarlos para no perder mucha información y, por el contrario, se reemplazaran por algun valor. Teniendo en cuenta la naturaleza aleatroria de esos registros, se imputará la moda de cada variable para reemplazarlos.
+```{r}
+# Se reemplazan valores faltantes con la moda
+moda <- names(sort(table(datos$piso), decreasing = TRUE))[1]
+datos$piso[is.na(datos$piso)] <- moda
+
+
+moda <- names(sort(table(datos$parquea), decreasing = TRUE))[1]
+datos$parquea[is.na(datos$parquea)] <- moda
+```
+
+
+<br>
+
+**2.3. Variabilidad en registros equivalentes**
+
+Se detectó que la variable tipo posee diferentes valores equivalentes escritos de forma diferente. En realidad, esta variable solo debería tener dos categorías denominadas Casa y Apartamento.
+
+```{r}
+unique(datos$tipo)
+```
+
+En total posee 6 diferentes categorías, por lo que se unificarán en las dos correctas.
+
+```{r}
+datos <- datos %>%
+  mutate(tipo = recode(tipo, 
+                       "Apartamento" = "Apartamento",
+                       "APARTAMENTO" = "Apartamento",
+                       "apto" = "Apartamento",
+                       "casa" = "Casa",
+                       "Casa" = "Casa",
+                       "CASA" = "Casa"))
+
+unique(datos$tipo)
+```
+
+<br>
+
+**2.4. Tranformación de tipos de variables**
+
+Por último, se transforman a factor las variables categóricas. Algunas de ellas como piso, parquea, banio y habitac son numéricas discretas, pero por conveniencia se tratarán como categóricas para el análisis.
+```{r}
+datos$zona <- as.factor(datos$zona)
+datos$tipo <- as.factor(datos$tipo)
+
+datos$banios <- factor(datos$banios, levels = c("0", "1","2","3","4","5","6","7","8","9","10"))
+datos$piso <- factor(datos$piso, levels = c("1","2","3","4","5","6","7","8","9","10","11","12"))
+datos$parquea <- factor(datos$parquea, levels = c("1","2","3","4","5","6","7","8","9","10"))
+datos$habitac <- factor(datos$habitac, levels = c("0", "1","2","3","4","5","6","7","8","9","10"))
+datos$estrato <- factor(datos$estrato, levels = c("3", "4", "5", "6"))
+ 
+```
+
+<br>
+
+### 3. Análisis exploratorio de datos
+
+Con el objetivo de descubrir diferentes relaciones, patrones y substraer información útil en los datos, se dispone a realizar un análisis exploratorio mediante el uso de herramientas estadísticas descriptivas, univariadas, bivariadas y de correlación. Para esto, se emplean indicadores y diferentes gráficos que brindan un mejor panorama y comprensión de la información. 
+
+Los indicadores proporcionan un análisis preliminar de los datos, utilizando medidas de tendencia central, de dispersión y de forma. Las gráficas presentan una visualización más limpia y sencilla y se pueden observar patrones que son difícil de detectar con solo la información tabulada. El análisis univariado presenta patrones de una sola variable, mientras que el análisis bivariado y de correlación muestran diferentes relaciones entre distintas variables. El objetivo final en este punto es generar diferentes insights o señales que permitan entender el funcionamiento del sector inmobiliario en Cali y, de esta forma, poder generar diferentes estrategias de impacto positivo para la empresa.
+
+
+<br>
+
+**3.1. Análisis de indicadores**
+
+Se genera una descripción a las variables mediante el uso de indicadores estadísticos, los cuales servirán para resumir con pocas métricas un gran numero de registros. Para ello se utiliza medidas de tendencia central (media, mediana y media truncada), medidas de dispersión (desviación estándar, error estándar y rango) y medidas de forma (curtosis y asimetría).
+
+```{r}
+# 1. Analisis de indicadores
+describe(datos[, -c(1, 11, 12, 13)])
+```
+
+En cuanto a las medidas de forma se observa que la mayoría de las variables tienen una distribución asimétrica positiva, es decir, hacia la izquierda. A su vez, algunas poseen curtosis, por lo que existe siempre una o pocas variables que predominan sobre el resto y generan picos altos en la distribución. A su vez, algunas medidas de tendencia central sugieren una tendencia hacia los valores bajos, teniendo en cuenta el rango de las variables. De igual forma, las medidas de dispersión sugieren un alto desequilibrio en variables como el precio, el piso y el área construida.
+
+<br>
+
+**3.2. Análisis univariado**
+
+Un punto de partida inicial es el análisis univariado, el cual se emplea para comprender y tener una visión mas detallada de una sola variable. Para tal fin, se realiza un análisis univariado a las variables categóricas y numéricas con el objetivo de observar su frecuencia y encontrar diferentes tendencias. 
+<br>
+
+
+Se realiza una tabla de frecuencia a las variables categóricas con el objetivo de crear gráficos de columnas y observar su distribución. 
+```{r fig.height=10, fig.width=10}
+# Variables categoricas
+Frecuencias <- lapply(datos[,-c(1,5,6,11,12,13)], table)
+
+
+par(mfrow = c(2, 2))
+
+for (i in 1:length(Frecuencias)) {
+  contar <- Frecuencias[[i]]
+  barplot(Frecuencias[[i]],
+          main = paste("Grafico de columnas de la variable", names(Frecuencias)[i]),
+          xlab = "Cantidad",
+          ylab = "Frecuencia",
+          col = ifelse(contar == max(contar), "blue", "skyblue"))
+  
+  legend("topright", legend = paste("Moda =", names(contar)[which.max(contar)]), pch = 15)
+
+}
+```
+Como se puede observar, todas las variables tienen distribuciones asimétricas. En cada gráfico se destaca con un color azul oscuro el dato de mayor frecuencia (moda), lo que permite entender un poco más las preferencias de los compradores a la hora de adquirir una propiedad. Así pues, lo que predomina es la adquisición de propiedades en la zona sur de Cali, con 2 pisos, estrato 5, con un solo parqueadero, 2 baños, 3 habitaciones y apartamentos. Resulta curioso la presencia de inmuebles de hasta 12 pisos, lo cual puede parecer raro. Una posible explicación es que, en el caso de los apartamentos, se trata de la ubicación del piso dentro del edificio y no de su cantidad de plantas.
+
+
+<br>
+
+Ahora bien, se realiza histogramas a las variables continuas con el objetivo de entender su distribución.
+```{r}
+# Variables numericas
+par(mfrow = c(1, 2))
+
+histograma <- datos[, c(5, 6)]
+
+for (i in 1:length(histograma)) {
+  hist(histograma[,i],
+          main = paste("Histograma de la variable", colnames(histograma)[i]),
+          xlab = "Cantidad",
+          ylab = "Frecuencia",
+          col = "skyblue")
+  
+  mediana <- median(histograma[, i], na.rm = TRUE)
+  
+  abline(v = mediana, col = "blue", lwd = 2)
+  
+  legend("topright", legend = paste("Mediana =", round(mediana, 1)))
+}
+```
+<br>
+
+De igual forma que con las categóricas, estas variables presentan una distribución asimétrica. Debido al desequilibrio en su distribución, se opta por usar como medida de tendencia central a la mediana. Se tiene que el precio de las propiedades tiene una mediana de COP $330.000.000 y su área construida una mediana de 123 metros cuadrados.
+
+<br>
+**3.3. Análisis bivariado**
+
+Con el propósito de identificar relaciones y el grado de asociación entre dos variables, se realiza un análisis bivariado y de correlación, esta última solo a las variables numéricas. Para realizarlo, se utilizan gráficos bivariados que permitan visualizar de forma mas clara las distintas relaciones presentes. Una de las características más importantes para la empresa es el precio de las viviendas, puesto que la venta de propiedades es el origen principal de sus ingresos. Por lo tanto, se usará esta variable como referencia y se relacionará con las demás variables para conocer las diferentes características y factores que influyen en ella y, de esta forma, poder encontrar oportunidades de mejora y obtener una ventaja competitiva.
+
+Debido a que la variable precio es numérica, se utilizará un grafico de dispersión para relacionarla con variables numéricas y de caja y bigotes para relacionarla con las categóricas. 
+<br>
+```{r fig.height=10, fig.width=10}
+# 3. Analisis bivariado
+dispersion <- datos[, -c(1,11,12,13)]
+
+par(mfrow = c(2, 2))  
+
+variables_a_graficar <- colnames(dispersion)[-which(names(dispersion) == "preciom")]
+
+for (var in variables_a_graficar) {
+  plot(datos[[var]], dispersion$precio,
+       main = paste("Grafico entre", var, "y Precio"),
+       xlab = var,
+       ylab = "Precio",
+       col = "skyblue",
+       pch = 16)  # Tipo de punto en el grafico
+}
+```
+<br>
+Se pueden observar algunas relaciones interesantes entre el precio de la vivienda y las demás variables. En cuanto a su ubicación, la zona oeste resultó ser la más costosa, sin embargo, su dispersión también es muy alta, por lo que se puede encontrar propiedades tanto económicas como con precios elevados. En cuanto a sus características físicas, se pueden encontrar tendencias positivas entre el precio y el área construida, el número de parqueaderos, la cantidad de baños y el número de habitaciones. Esto sugiere que los compradores les dan un valor mas alto a propiedades mas grandes y con comodidades secundarias. Sin embargo, la tendencia se desacelera a partir de 8 parqueaderos, 7 baños y 5 habitaciones, lo que podría indicar que existe un limite en la sobre abundancia de comodidades secundarias, los cuales pierden valor para los clientes. Por último, se observa que las casas son mas costosas que los apartamentos, probablemente por su mayor tamaño con respecto a los apartamentos.
+
+<br>
+
+
+**3.4. Análisis de correlación**
+<br>
+```{r}
+# 4. Analisis de correlacion
+correlacion <- datos[, c(5, 6)]
+
+cor(correlacion, 
+    use = "complete.obs")
+```
+<br>
+
+
+Al igual que con el análisis biariado, el análisis de correlación indica una relacion positiva entre el precio y el áera construida de la casa, esto sigunifica que a mayor tamaño de la propiedad, mayor es su precio.
+
+<br>
+
+## Conclusiones
+
+### Conclusiones principales
+
+- Importancia de la ubicación: Se observó que, en promedio, la zona oeste tiene viviendas mas costosas. Sin embargo, también tiene una alta dispersión, por lo que en dicha zona coexisten tanto viviendas de alto como de bajo costo. Adicionalmente, se encontró que en la zona sur se vende un mayor número de propiedades, por lo que existe un gran mercado a explotar allí. 
+
+
+- Existe una relación positiva del precio con algunas características de la vivienda, por lo que los compradores parecen valorar propiedades grandes con comodidades extras como un mayor número de baños o la presencia de varios parqueaderos, no obstante, el exceso de estas comodidades tiene un límite que ya no es tan valorado.
+
+
+- Tipo de propiedad: Se tiene que las casas poseen un valor mas elevado que los apartamentos, por lo que el mercado de las casas puede generar mayores ingresos a la empresa. En contraposición, existe una mayor demanda de apartamentos, por lo que la tendencia de los compradores podría ser la adquisición de propiedades más económicas.
+
+### Recomendaciones:
+
+- Segmentación de clientes: Dado que la mayor cantidad de clientes se presentan en los estratos 4, 5 y 6 y en la adquisición de apartamentos, se puede direccionar diferentes estrategias que busquen construir y vender apartamentos hacia este segmento de la población, los cuales ofrecen posibilidades de expansión.
+
+
+- Enfocarse en propiedades mas grandes: Dado que existe una relación positiva entre el precio y el área construida, así como en la cantidad de habitaciones, baños y parqueaderos, se recomendaría expandir el mercado hacia la venta de propiedades de mayor tamaño y, de esta forma, poder incrementar los ingresos de la empresa.
+
+
+- Foco en la zona oeste y sur: Dado que la zona oeste posee propiedades con mayor precio y la zona sur una mayor demanda, se debe focalizar la construcción y venta de propiedades en dichos lugares, en donde hay un mayor y mas valorado nicho de mercado.
+
+
+- Seguimiento constante del mercado: Dado que el mercado inmobiliario es muy dinámico, se debe realizar este tipo de análisis de forma recurrente, de tal forma que se puedan identificar los cambios en los gustos de los consumidores y las diferentes fluctuaciones en los precios, por lo que debe haber un trabajo constante entre el departamento de estadística y los directivos de la empresa.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- **Paso 5: Genera el documento de salida** -->
+
+<!-- <br> -->
+
+<!-- Paso 5: Genera el documento de salida -->
+
+
+<!-- **1.** Una vez que hayas escrito tu contenido y añadido los bloques de código R necesarios, estás listo para generar el documento de salida. -->
+
+<!-- **2.** Haz clic en el botón "Knit" en la parte superior de la ventana de edición. Esto compilará el RMarkdown y generará el documento de salida en el formato que hayas elegido. -->
+
+
+<!-- ```{r, warning=FALSE} -->
+<!-- library(ggplot2) -->
+<!-- ``` -->
+
+
+<!-- - Agregar más bloques de código R para realizar análisis y generar gráficos. -->
+<!-- - Insertar imágenes, enlaces y tablas utilizando la sintaxis Markdown. -->
+<!-- - Cambiar el formato de salida ajustando las opciones en el encabezado YAML. -->
+<!-- - Aplicar estilos y temas personalizados utilizando CSS (para formatos HTML) o LaTeX (para formatos PDF). -->
+
